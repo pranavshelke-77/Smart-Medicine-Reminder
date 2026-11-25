@@ -18,4 +18,4 @@ The enclosure is an open-top square box with a separate flat lid (holes for wire
 
 Values are read from the Bambu Studio slicing-result screenshot (`media/photos/bambu-studio-send-print-job.jpg`).
 
-Videos of the print: `media/videos/`.
+Project video (slicing, printing and the finished box): `media/videos/medalarm-project-video.mp4`.

@@ -59,7 +59,7 @@ firmware/medicine_alarm/       Arduino sketch for the ESP32
 docs/                          overview, bill of materials, wiring, 3D printing, testing
 cad/                           SOLIDWORKS model, STEP and STL files
 data/test-log-template.csv     blank test log
-media/photos, media/videos     real build photographs and print videos
+media/photos, media/videos     real build photographs and the project video
 ```
 
 ## Limitations
