@@ -49,6 +49,8 @@ The enclosure was modelled in SOLIDWORKS 2026. Click an STL file on GitHub to ro
 
 The original SOLIDWORKS files are in [`cad/solidworks/`](cad/solidworks): open `assembly.SLDASM` with `Part1`–`Part3.SLDPRT` in the same folder.
 
+Printed on a **Bambu Lab A1 mini** (180 × 180 × 180 mm build volume, 0.4 mm nozzle, PLA). Full printer specifications are in [docs/3d-printing.md](docs/3d-printing.md) and on the project website.
+
 ## Use
 
 1. Upload `firmware/medicine_alarm/medicine_alarm.ino` with the Arduino IDE (ESP32 board package, *ESP32 Dev Module*).
