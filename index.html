@@ -61,7 +61,7 @@
           <p class="eyebrow">Group <span data-team="group">No. 2</span> · Sanjivani University · Makerspace</p>
           <h1 id="hero-title">MedAlarm <span class="h1-sub">— Smart Medicine Reminder &amp; Emergency Alert System</span></h1>
           <p class="hero-lede">A small, screen-free device that reminds a patient to take their medicine on time. There is no LCD or keypad on the box: the ESP32 creates its own Wi-Fi network, and the medicine name, reminder time and alarm are set from any phone browser. A buzzer sounds when the dose is due, a physical button stops it, and a separate emergency button raises an alert.</p>
-          <p class="hero-lede">The enclosure was designed for this build and 3D-printed in PLA on a <strong>Bambu Lab A1 mini</strong>. Wiring and soldering are in progress; no test results are claimed yet.</p>
+          <p class="hero-lede">The enclosure was designed for this build and 3D-printed in PLA on a <strong>Bambu Lab A1 mini</strong>. The build is complete and the device is still being tested, so no test results are claimed yet.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#journey">Explore the build <span aria-hidden="true">↓</span></a>
             <a class="button" href="#phone">Try the phone simulator</a>
@@ -348,13 +348,13 @@
         <ol class="journey">
           <li>
             <span class="step-no">01</span>
-            <p class="step-status status-done">Done</p>
+            <p class="step-status status-done">Completed</p>
             <h3>Concept: remove the screen</h3>
             <p>The original medicine-alarm concept had a display on the device. We moved all settings to a phone web page served by the ESP32, compared ESP32-only control with an ESP32 + GSM design, and chose ESP32-only for the first version.</p>
           </li>
           <li>
             <span class="step-no">02</span>
-            <p class="step-status status-done">Done</p>
+            <p class="step-status status-done">Completed</p>
             <h3>Slicing the enclosure in Bambu Studio</h3>
             <p>The box and lid were prepared in Bambu Studio at the Makerspace with the 0.28 mm Extra Draft profile for the A1 mini.</p>
             <div class="step-media">
@@ -365,7 +365,7 @@
           </li>
           <li>
             <span class="step-no">03</span>
-            <p class="step-status status-done">Done</p>
+            <p class="step-status status-done">Completed</p>
             <h3>Printing on the Bambu Lab A1 mini</h3>
             <p>The print started with auto bed levelling and flow calibration (the printer screen shows the nozzle at 101 °C and bed at 34 °C while heating). The box and lid printed successfully in white PLA.</p>
             <div class="step-media">
@@ -374,23 +374,19 @@
           </li>
           <li>
             <span class="step-no">04</span>
-            <p class="step-status status-progress">In progress</p>
+            <p class="step-status status-done">Completed</p>
             <h3>Wiring and soldering into the enclosure</h3>
-            <p>Leads are being soldered and routed into the printed box; the lid carries holes for the wires. A small black switch with its red lead is already fitted inside the box.</p>
-            <div class="step-media">
-              <button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-1.jpg" data-caption="Soldering the leads next to the printed enclosure."><img src="media/photos/soldering-enclosure-wiring-1.jpg" loading="lazy" alt="Soldering iron and wires beside the white 3D-printed enclosure"></button>
-              <button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-2.jpg" data-caption="Tinning a wire with the enclosure and lid in the background."><img src="media/photos/soldering-enclosure-wiring-2.jpg" loading="lazy" alt="Tinning a wire with the enclosure and lid in the background"></button>
-            </div>
+            <p>The leads were soldered and routed into the printed box, and the lid carries holes for the wires.</p>
           </li>
           <li>
             <span class="step-no">05</span>
-            <p class="step-status status-planned">Next</p>
+            <p class="step-status status-progress">Still testing</p>
             <h3>Upload firmware and connect the phone</h3>
             <p>Flash <code>medicine_alarm.ino</code> from the Arduino IDE, join the <code>MedicineAlarm</code> network and set the first reminder.</p>
           </li>
           <li>
             <span class="step-no">06</span>
-            <p class="step-status status-planned">Planned</p>
+            <p class="step-status status-progress">Still testing</p>
             <h3>Test and record results</h3>
             <p>Run the test plan in Section 10 and publish the measured results on this page.</p>
           </li>
@@ -762,7 +758,7 @@ void loop() {
           <p class="section-number"><span class="tb-label">SEC</span> 10</p>
           <h2 id="testing-title">Testing plan</h2>
         </header>
-        <p class="result-flag"><strong>No results yet.</strong> Measured results will be published here once the device is wired and the firmware is running. Record raw results in <a href="data/test-log-template.csv">data/test-log-template.csv</a>.</p>
+        <p class="result-flag"><strong>Still testing.</strong> The device is built and testing is in progress; measured results will be published here when it is finished. Record raw results in <a href="data/test-log-template.csv">data/test-log-template.csv</a>.</p>
         <div class="test-grid">
           <article><h3>Reminder accuracy</h3><p>Set a reminder 2 minutes ahead; record the actual buzzer start time against the phone clock. Repeat 10 times.</p></article>
           <article><h3>Clock drift</h3><p>Set the clock, leave the device running 24 h, compare with the phone. Report seconds of drift per day.</p></article>
@@ -803,8 +799,6 @@ void loop() {
         </header>
         <p class="section-intro">All photographs are real and unedited (resized for the web). Click a photo to open it full size; use the arrow keys to browse.</p>
         <div class="media-grid" id="gallery-grid">
-          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-1.jpg" data-caption="Soldering the leads next to the printed enclosure."><img src="media/photos/soldering-enclosure-wiring-1.jpg" loading="lazy" alt="Soldering beside the enclosure"></button><figcaption><b>Soldering</b>Leads being prepared for the enclosure.</figcaption></figure>
-          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-2.jpg" data-caption="Tinning a wire with the enclosure and lid in the background."><img src="media/photos/soldering-enclosure-wiring-2.jpg" loading="lazy" alt="Tinning a wire"></button><figcaption><b>Tinning wires</b>Box and drilled lid behind.</figcaption></figure>
           <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/bambu-a1-mini-printing-screen.jpg" data-caption="Bambu Lab A1 mini at the start of the enclosure print."><img src="media/photos/bambu-a1-mini-printing-screen.jpg" loading="lazy" alt="A1 mini screen"></button><figcaption><b>A1 mini screen</b>Print starting, 1 h 38 m estimate.</figcaption></figure>
           <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/slicing-in-bambu-studio-1.jpg" data-caption="Slicing the enclosure in Bambu Studio with our mentor."><img src="media/photos/slicing-in-bambu-studio-1.jpg" loading="lazy" alt="Slicing with mentor"></button><figcaption><b>Slicing</b>Preparing the print with our mentor.</figcaption></figure>
           <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/slicing-in-bambu-studio-2.jpg" data-caption="Setting up the print in Bambu Studio at the Makerspace."><img src="media/photos/slicing-in-bambu-studio-2.jpg" loading="lazy" alt="Students at the slicer"></button><figcaption><b>At the Makerspace</b>Bambu Studio set-up.</figcaption></figure>
@@ -822,26 +816,26 @@ void loop() {
         </header>
         <div class="status-board">
           <div class="status-col">
-            <h3 class="status-done">Done</h3>
+            <h3 class="status-done">Completed</h3>
             <ul>
               <li>Screen-free, phone-controlled concept</li>
               <li>Component selection and pin map</li>
               <li>Firmware v1 written</li>
               <li>Enclosure box and lid printed on the A1 mini</li>
-            </ul>
-          </div>
-          <div class="status-col">
-            <h3 class="status-progress">In progress</h3>
-            <ul>
               <li>Soldering and wiring inside the enclosure</li>
               <li>Mounting buttons and buzzer in the lid</li>
             </ul>
           </div>
           <div class="status-col">
-            <h3 class="status-planned">Next</h3>
+            <h3 class="status-progress">Still testing</h3>
             <ul>
               <li>Flash firmware and phone test</li>
               <li>Run the testing plan, publish results</li>
+            </ul>
+          </div>
+          <div class="status-col">
+            <h3 class="status-planned">Next</h3>
+            <ul>
               <li>DS3231 RTC for power-loss recovery</li>
               <li>Multiple medicine schedules</li>
               <li>GSM / internet alerts for emergencies</li>

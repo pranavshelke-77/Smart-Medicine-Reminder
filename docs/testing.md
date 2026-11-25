@@ -1,6 +1,6 @@
 # Testing plan
 
-No results yet. Record raw results in `data/test-log-template.csv`.
+Still testing: the build is complete and results will be added here when testing is finished. Record raw results in `data/test-log-template.csv`.
 
 | Test | Method | Report |
 |---|---|---|

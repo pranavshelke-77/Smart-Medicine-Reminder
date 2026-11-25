@@ -18,11 +18,11 @@ A screen-free medicine reminder built on an **ESP32**. The device has no LCD or 
 
 | Stage | Status |
 |---|---|
-| Screen-free, phone-controlled concept | Done |
-| Firmware v1 (one daily reminder) | Written, not yet tested on hardware |
+| Screen-free, phone-controlled concept | Completed |
+| Firmware v1 (one daily reminder) | Written — still testing on the hardware |
 | Enclosure box and lid, Bambu Lab A1 mini | Printed |
-| Wiring and soldering into enclosure | In progress |
-| Testing | Planned — no results claimed yet |
+| Wiring and soldering into enclosure | Completed |
+| Testing | Still testing — no results published yet |
 
 ## Hardware
 
