@@ -8,6 +8,12 @@ A screen-free medicine reminder built on an **ESP32**. The device has no LCD or 
 
 ![Enclosure printing on the Bambu Lab A1 mini](media/og-image.jpg)
 
+## Team
+
+- **Group:** No. 2
+- **Members:** Siddharth Pund, Pranav Shelke, Vivek Jadhav, Harshad Pagar
+- **Project guide:** Dr. Kiran Wakchaure
+
 ## Status
 
 | Stage | Status |
