@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Sanjivani University Makerspace: MedAlarm, a screen-free ESP32 medicine reminder and emergency alert device controlled from a phone over Wi-Fi, with a 3D-printed enclosure made on a Bambu Lab A1 mini.">
+  <title>MedAlarm — Smart Medicine Reminder &amp; Emergency Alert System | Engineering Journal</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MedAlarm">
+  <meta property="og:title" content="MedAlarm — Smart Medicine Reminder & Emergency Alert System">
+  <meta property="og:description" content="A screen-free ESP32 medicine reminder controlled from a phone over Wi-Fi, in an enclosure 3D-printed on a Bambu Lab A1 mini.">
+  <meta property="og:image" content="./media/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+    try {
+      var t = localStorage.getItem("medalarm-theme");
+      if (t === "light" || t === "dark") {
+        document.documentElement.setAttribute("data-theme", t);
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="./assets/css/site.css">
+  <script defer src="./assets/js/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="MedAlarm, back to top">
+      <span class="brand-mark" aria-hidden="true">MA</span>
+      <span class="brand-type"><strong>MedAlarm</strong><small>Sanjivani University · Makerspace</small></span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <a href="#problem">Problem</a>
+      <a href="#how">How it works</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#wiring">Wiring</a>
+      <a href="#printing">3D printing</a>
+      <a href="#journey">Journey</a>
+      <a href="#firmware">Firmware</a>
+      <a href="#phone">Phone control</a>
+      <a href="#testing">Testing</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#status">Status</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch colour theme">Light</button>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open navigation"><span aria-hidden="true"></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ 01 HERO ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-inner shell shell-wide">
+        <div class="hero-copy">
+          <p class="eyebrow">Group <span data-team="group">__</span> · Sanjivani University · Makerspace</p>
+          <h1 id="hero-title">MedAlarm <span class="h1-sub">— Smart Medicine Reminder &amp; Emergency Alert System</span></h1>
+          <p class="hero-lede">A small, screen-free device that reminds a patient to take their medicine on time. There is no LCD or keypad on the box: the ESP32 creates its own Wi-Fi network, and the medicine name, reminder time and alarm are set from any phone browser. A buzzer sounds when the dose is due, a physical button stops it, and a separate emergency button raises an alert.</p>
+          <p class="hero-lede">The enclosure was designed for this build and 3D-printed in PLA on a <strong>Bambu Lab A1 mini</strong>. Wiring and soldering are in progress; no test results are claimed yet.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#journey">Explore the build <span aria-hidden="true">↓</span></a>
+            <a class="button" href="#phone">Try the phone simulator</a>
+            <a class="button" href="#status">Build status</a>
+          </div>
+          <p class="hero-team"><span class="hero-team-label">Team</span> <span data-team="members">Pranav Ravindra Shelke</span> · FY B.Tech Mechanical Engineering · Sanjivani University</p>
+          <p class="hero-team"><span class="hero-team-label">Project Guide:</span> <span data-team="guide">to be added</span></p>
+          <div class="stat-row">
+            <div class="stat"><b>ESP32</b><span>Wi-Fi controller</span></div>
+            <div class="stat"><b>0</b><span>screens on the device</span></div>
+            <div class="stat"><b>98.66 g</b><span>PLA for the enclosure</span></div>
+            <div class="stat"><b>1 h 38 m</b><span>A1 mini print time</span></div>
+          </div>
+        </div>
+        <figure class="hero-media">
+          <video src="media/videos/printing-enclosure-box.mp4" poster="media/posters/printing-enclosure-box.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Real footage: the enclosure being printed on the Bambu Lab A1 mini"></video>
+          <span class="label-chip">Real footage · Bambu Lab A1 mini</span>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 02 PROBLEM ============ -->
+    <section class="section" id="problem" aria-labelledby="problem-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 02</p>
+          <h2 id="problem-title">The problem, and our idea</h2>
+        </header>
+        <div class="prose">
+          <p class="lede">Missed or late doses are common, especially for elderly people who take several medicines a day. Phone alarms are easy to dismiss and forget, and a dedicated reminder is easier to notice when it sits next to the medicine.</p>
+          <p>Our first concept used a display on the device to set reminders. We removed the screen to make the device smaller, simpler and cheaper: the user's phone already has a good screen and keyboard. The ESP32 serves a small web page over its own Wi-Fi network, so no app, router or internet connection is needed.</p>
+        </div>
+        <div class="table-wrap" tabindex="0" role="region" aria-labelledby="compare-caption">
+          <table>
+            <caption id="compare-caption">Control options we considered</caption>
+            <thead>
+              <tr><th scope="col">Feature</th><th scope="col">ESP32 only (chosen)</th><th scope="col">ESP32 + GSM (SIM800L)</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Set medicine alarm from phone</th><td class="yes">Yes, via Wi-Fi</td><td class="yes">Yes</td></tr>
+              <tr><th scope="row">Stop buzzer from phone</th><td class="yes">Yes, via Wi-Fi</td><td class="yes">Yes, with extra programming</td></tr>
+              <tr><th scope="row">Works without internet</th><td class="yes">Yes, ESP32's own Wi-Fi</td><td class="yes">Yes, mobile network</td></tr>
+              <tr><th scope="row">SMS alerts</th><td class="no">No</td><td class="yes">Yes</td></tr>
+              <tr><th scope="row">Emergency phone calls</th><td class="no">No</td><td class="yes">Yes, with SIM and network</td></tr>
+              <tr class="row-highlight"><th scope="row">Complexity / cost</th><td>Lowest: one board, no SIM</td><td>Needs SIM, 2 A peak supply, network coverage</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <blockquote class="question">
+          <p class="eyebrow">The question we are answering</p>
+          <p>Can a screen-free ESP32 device, configured entirely from a phone browser, reliably sound a medicine reminder at the set time and let the user stop it, or raise an emergency alert, with one button press?</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============ 03 HOW IT WORKS ============ -->
+    <section class="section section-tinted" id="how" aria-labelledby="how-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 03</p>
+          <h2 id="how-title">How it works</h2>
+        </header>
+        <div class="prose">
+          <p>The ESP32 starts a Wi-Fi access point called <code>MedicineAlarm</code>. The phone joins it and opens <code>http://192.168.4.1</code>. From that page the user sets the clock (from the phone's own time), the medicine name and the daily reminder time. Every loop the ESP32 compares its clock with the reminder; when they match it pulses the buzzer until the stop button, or <em>Stop buzzer</em> on the phone, is pressed. The emergency button sets an alert flag that is visible on the phone's status page.</p>
+        </div>
+        <figure class="diagram">
+          <figcaption class="figure-label"><span class="label-chip">Block diagram</span> FIG. 1 — System architecture (no display on the device)</figcaption>
+          <div class="diagram-scroll" tabindex="0" role="region" aria-label="Block diagram, scrollable on small screens">
+            <svg viewBox="0 0 960 360" role="img" aria-labelledby="bd-title bd-desc">
+              <title id="bd-title">MedAlarm block diagram</title>
+              <desc id="bd-desc">A mobile phone connects over Wi-Fi to the ESP32 controller. The ESP32 drives the buzzer and reads the stop and emergency buttons. It is powered over USB. A GSM module is an optional future upgrade.</desc>
+              <defs>
+                <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="d-arrow"></path></marker>
+              </defs>
+              <rect x="30" y="110" width="200" height="140" rx="14" class="d-box"></rect>
+              <text x="130" y="150" text-anchor="middle" class="d-title">Mobile phone</text>
+              <text x="130" y="178" text-anchor="middle" class="d-text">Browser → 192.168.4.1</text>
+              <text x="130" y="200" text-anchor="middle" class="d-text">Medicine name, time,</text>
+              <text x="130" y="220" text-anchor="middle" class="d-text">stop &amp; emergency</text>
+
+              <path d="M232 180 H368" class="d-line-wifi" marker-end="url(#arr)"></path>
+              <path d="M368 196 H232" class="d-line-wifi" marker-end="url(#arr)"></path>
+              <text x="300" y="166" text-anchor="middle" class="d-pin">Wi-Fi AP</text>
+              <text x="300" y="222" text-anchor="middle" class="d-text">"MedicineAlarm"</text>
+
+              <rect x="370" y="80" width="230" height="200" rx="14" class="d-box-accent"></rect>
+              <text x="485" y="122" text-anchor="middle" class="d-title">ESP32 DevKit V1</text>
+              <text x="485" y="150" text-anchor="middle" class="d-text">Web server (port 80)</text>
+              <text x="485" y="172" text-anchor="middle" class="d-text">Software clock</text>
+              <text x="485" y="194" text-anchor="middle" class="d-text">Daily schedule check</text>
+              <text x="485" y="216" text-anchor="middle" class="d-text">Button logic</text>
+              <text x="485" y="262" text-anchor="middle" class="d-pin">USB 5 V power</text>
+
+              <rect x="700" y="30" width="220" height="70" rx="12" class="d-box"></rect>
+              <text x="810" y="62" text-anchor="middle" class="d-title">Active buzzer</text>
+              <text x="810" y="84" text-anchor="middle" class="d-text">Beeps 400 ms on/off</text>
+              <rect x="700" y="145" width="220" height="70" rx="12" class="d-box"></rect>
+              <text x="810" y="177" text-anchor="middle" class="d-title">Stop button</text>
+              <text x="810" y="199" text-anchor="middle" class="d-text">Silences the alarm</text>
+              <rect x="700" y="260" width="220" height="70" rx="12" class="d-box"></rect>
+              <text x="810" y="292" text-anchor="middle" class="d-title">Emergency button</text>
+              <text x="810" y="314" text-anchor="middle" class="d-text">Raises alert flag</text>
+
+              <path d="M602 130 C650 130 650 65 698 65" class="d-line" marker-end="url(#arr)"></path>
+              <text x="640" y="88" class="d-pin">GPIO 25</text>
+              <path d="M698 180 H602" class="d-line" marker-end="url(#arr)"></path>
+              <text x="626" y="172" class="d-pin">GPIO 26</text>
+              <path d="M698 295 C650 295 650 235 602 235" class="d-line" marker-end="url(#arr)"></path>
+              <text x="636" y="282" class="d-pin">GPIO 27</text>
+
+              <rect x="30" y="290" width="270" height="56" rx="12" class="d-box-warn"></rect>
+              <text x="165" y="316" text-anchor="middle" class="d-title" style="font-size:14px">Optional: GSM (SIM800L)</text>
+              <text x="165" y="335" text-anchor="middle" class="d-text">SMS / call alerts — future upgrade</text>
+            </svg>
+          </div>
+          <p class="figure-caption">Arrows show the direction of data or signal. The GSM block is not part of the current build.</p>
+        </figure>
+        <div class="note-block warn">
+          <h3>A reminder aid, not a medical device</h3>
+          <p>MedAlarm helps people remember a dose; it does not dispense or verify medicine. Dosing must follow a healthcare professional's instructions, and the prototype should never be the only reminder.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 HARDWARE ============ -->
+    <section class="section" id="hardware" aria-labelledby="hardware-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 04</p>
+          <h2 id="hardware-title">Hardware</h2>
+        </header>
+        <p class="section-intro">Everything needed for the screen-free version. Full list with notes: <a href="docs/bill-of-materials.md">docs/bill-of-materials.md</a>.</p>
+        <div class="card-grid">
+          <article class="card"><span class="qty">×1</span><h3>ESP32 DevKit V1</h3><p>Main controller. Hosts the Wi-Fi access point and web page, keeps time and drives the buzzer.</p><span class="tag">Controller</span></article>
+          <article class="card"><span class="qty">×1</span><h3>Active buzzer</h3><p>Sounds when the dose is due. 3.3 V-compatible, low current; otherwise drive it through a transistor.</p><span class="tag">Output</span></article>
+          <article class="card"><span class="qty">×2</span><h3>Push buttons</h3><p>6 × 6 mm tactile switches: one stops the alarm, one raises an emergency alert. Internal pull-ups, no resistors.</p><span class="tag">Input</span></article>
+          <article class="card"><span class="qty">×1</span><h3>Breadboard &amp; jumper wires</h3><p>Prototype wiring, later soldered inside the enclosure.</p><span class="tag">Wiring</span></article>
+          <article class="card"><span class="qty">×1</span><h3>USB power supply</h3><p>5 V USB supply and cable for the ESP32. A battery and regulator can be added later.</p><span class="tag">Power</span></article>
+          <article class="card"><span class="qty">×1</span><h3>3D-printed enclosure</h3><p>White PLA box and lid, printed on a Bambu Lab A1 mini (0.4 mm nozzle).</p><span class="tag">Mechanical</span></article>
+          <article class="card optional"><span class="qty">opt.</span><h3>DS3231 RTC module</h3><p>Battery-backed clock so the time survives a power cut. Recommended upgrade.</p><span class="tag">Upgrade</span></article>
+          <article class="card optional"><span class="qty">opt.</span><h3>SIM800L GSM module</h3><p>For real SMS or call alerts. Needs its own supply able to deliver about 2 A peaks.</p><span class="tag">Upgrade</span></article>
+        </div>
+        <p class="section-intro">Removed from the earlier concept: LCD / OLED display and keypad — the phone replaces them.</p>
+      </div>
+    </section>
+
+    <!-- ============ 05 WIRING ============ -->
+    <section class="section section-tinted" id="wiring" aria-labelledby="wiring-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 05</p>
+          <h2 id="wiring-title">Wiring</h2>
+        </header>
+        <div class="split">
+          <div>
+            <div class="table-wrap">
+              <table>
+                <caption>ESP32 pin assignment</caption>
+                <thead><tr><th scope="col">Component</th><th scope="col">Terminal</th><th scope="col">ESP32 pin</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row" rowspan="2">Active buzzer</th><td>Positive (+)</td><td><code>GPIO 25</code></td></tr>
+                  <tr><td>Negative (−)</td><td><code>GND</code></td></tr>
+                  <tr><th scope="row" rowspan="2">Stop button</th><td>Terminal 1</td><td><code>GPIO 26</code></td></tr>
+                  <tr><td>Terminal 2</td><td><code>GND</code></td></tr>
+                  <tr><th scope="row" rowspan="2">Emergency button</th><td>Terminal 1</td><td><code>GPIO 27</code></td></tr>
+                  <tr><td>Terminal 2</td><td><code>GND</code></td></tr>
+                  <tr><th scope="row">Power</th><td>USB 5 V</td><td>Micro-USB port</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Buttons are active-low: the firmware enables the ESP32's internal pull-up resistors, so a press reads <code>LOW</code>. An ESP32 GPIO should not source more than about 20 mA continuously; check the buzzer's rating and use an NPN transistor driver if it draws more.</p>
+          </div>
+          <figure class="diagram" style="margin:0">
+            <figcaption class="figure-label"><span class="label-chip">Wiring diagram</span> FIG. 2 — Connections</figcaption>
+            <svg viewBox="0 0 460 380" role="img" aria-label="Wiring diagram: buzzer to GPIO 25, stop button to GPIO 26, emergency button to GPIO 27, all returning to GND" style="min-width:0">
+              <rect x="30" y="40" width="150" height="300" rx="10" class="d-box-accent"></rect>
+              <text x="105" y="72" text-anchor="middle" class="d-title">ESP32</text>
+              <text x="105" y="92" text-anchor="middle" class="d-text">DevKit V1</text>
+              <text x="170" y="134" text-anchor="end" class="d-pin">GPIO25</text>
+              <text x="170" y="214" text-anchor="end" class="d-pin">GPIO26</text>
+              <text x="170" y="294" text-anchor="end" class="d-pin">GPIO27</text>
+              <text x="105" y="328" text-anchor="middle" class="d-pin">GND</text>
+              <path d="M180 130 H300" class="d-line"></path>
+              <path d="M180 210 H300" class="d-line"></path>
+              <path d="M180 290 H300" class="d-line"></path>
+              <rect x="300" y="108" width="110" height="44" rx="8" class="d-box"></rect>
+              <text x="355" y="135" text-anchor="middle" class="d-text">Buzzer +/−</text>
+              <rect x="300" y="188" width="110" height="44" rx="8" class="d-box"></rect>
+              <text x="355" y="215" text-anchor="middle" class="d-text">Stop button</text>
+              <rect x="300" y="268" width="110" height="44" rx="8" class="d-box"></rect>
+              <text x="355" y="295" text-anchor="middle" class="d-text">Emergency btn</text>
+              <path d="M410 130 H440 V360 H105 V340" class="d-line-gnd"></path>
+              <path d="M410 210 H440" class="d-line-gnd"></path>
+              <path d="M410 290 H440" class="d-line-gnd"></path>
+              <text x="270" y="374" text-anchor="middle" class="d-text">Common GND return</text>
+            </svg>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 3D PRINTING ============ -->
+    <section class="section" id="printing" aria-labelledby="printing-title">
+      <div class="shell shell-wide">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 06</p>
+          <h2 id="printing-title">Enclosure and 3D printing</h2>
+        </header>
+        <p class="section-intro">The electronics live in an open-top square box with a separate flat lid, printed in white PLA on the Makerspace's <strong>Bambu Lab A1 mini</strong>. The job was prepared in <strong>Bambu Studio</strong> and sent to the printer over LAN. Settings below are read from the slicer screenshot.</p>
+        <div class="split">
+          <div class="table-wrap" style="margin:0">
+            <table class="spec-table">
+              <caption>Print job (Bambu Studio slicing result, plate 1)</caption>
+              <tbody>
+                <tr><th scope="row">Printer</th><td>Bambu Lab A1 mini (LAN)</td></tr>
+                <tr><th scope="row">Nozzle</th><td>0.4 mm, standard flow</td></tr>
+                <tr><th scope="row">Build plate</th><td>Textured PEI</td></tr>
+                <tr><th scope="row">Filament</th><td>PLA Basic (white)</td></tr>
+                <tr><th scope="row">Process profile</th><td>0.28 mm Extra Draft @BBL A1M</td></tr>
+                <tr><th scope="row">Bed adhesion</th><td>Outer brim, 5 mm</td></tr>
+                <tr><th scope="row">Prime tower</th><td>Enabled</td></tr>
+                <tr><th scope="row">Auto bed levelling</th><td>On</td></tr>
+                <tr><th scope="row">Flow dynamics calibration</th><td>On</td></tr>
+                <tr><th scope="row">Timelapse</th><td>Off</td></tr>
+                <tr><th scope="row">Filament used</th><td>32.56 m · 98.66 g</td></tr>
+                <tr><th scope="row">Estimated time</th><td>1 h 27 m printing · 1 h 38 m total</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="media-grid" style="margin:0;grid-template-columns:1fr">
+              <figure class="media-card landscape">
+                <button class="image-button" type="button" data-lightbox="media/photos/bambu-studio-send-print-job.jpg" data-caption="Bambu Studio: 'Send print job' to the A1 mini — 1 h 38 m, 98.66 g PLA.">
+                  <img src="media/photos/bambu-studio-send-print-job.jpg" loading="lazy" alt="Bambu Studio send print job dialog for the enclosure box on a Bambu Lab A1 mini">
+                </button>
+                <figcaption><b>Slicing in Bambu Studio</b>Enclosure box sliced and sent to the A1 mini over LAN.</figcaption>
+              </figure>
+            </div>
+            <div class="note-block">
+              <h3>Why these settings</h3>
+              <p>0.28 mm Extra Draft trades surface finish for speed — acceptable for a hidden electronics box. A 5 mm brim helps the thin, tall walls stay flat on the textured PEI plate.</p>
+            </div>
+          </div>
+        </div>
+        <h3 class="subhead">Print videos</h3>
+        <div class="media-grid videos">
+          <figure class="media-card">
+            <video src="media/videos/printing-enclosure-box.mp4" poster="media/posters/printing-enclosure-box.jpg" controls muted playsinline preload="none"></video>
+            <figcaption><b>Enclosure box, near completion</b>Thin PLA walls building up on the A1 mini.</figcaption>
+          </figure>
+          <figure class="media-card">
+            <video src="media/videos/printing-enclosure-walls.mp4" poster="media/posters/printing-enclosure-walls.jpg" controls muted playsinline preload="none"></video>
+            <figcaption><b>Enclosure walls</b>Toolhead finishing the upper layers.</figcaption>
+          </figure>
+          <figure class="media-card">
+            <video src="media/videos/printing-lid-first-layers.mp4" poster="media/posters/printing-lid-first-layers.jpg" controls muted playsinline preload="none"></video>
+            <figcaption><b>Lid, first layers</b>Flat lid with sparse infill on the textured PEI plate.</figcaption>
+          </figure>
+          <figure class="media-card">
+            <video src="media/videos/printing-lid-closeup.mp4" poster="media/posters/printing-lid-closeup.jpg" controls muted playsinline preload="none"></video>
+            <figcaption><b>Lid, close-up</b>Front view of the A1 mini toolhead laying down the lid.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 07 JOURNEY ============ -->
+    <section class="section section-tinted" id="journey" aria-labelledby="journey-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 07</p>
+          <h2 id="journey-title">Engineering journey</h2>
+        </header>
+        <p class="section-intro">How the prototype is being built, in order, with our real photographs and videos. Click a photo to enlarge it.</p>
+        <ol class="journey">
+          <li>
+            <span class="step-no">01</span>
+            <p class="step-status status-done">Done</p>
+            <h3>Concept: remove the screen</h3>
+            <p>The original medicine-alarm concept had a display on the device. We moved all settings to a phone web page served by the ESP32, compared ESP32-only control with an ESP32 + GSM design, and chose ESP32-only for the first version.</p>
+          </li>
+          <li>
+            <span class="step-no">02</span>
+            <p class="step-status status-done">Done</p>
+            <h3>Slicing the enclosure in Bambu Studio</h3>
+            <p>The box and lid were prepared in Bambu Studio at the Makerspace with the 0.28 mm Extra Draft profile for the A1 mini.</p>
+            <div class="step-media">
+              <button class="image-button" type="button" data-lightbox="media/photos/slicing-in-bambu-studio-1.jpg" data-caption="Slicing the enclosure in Bambu Studio with our mentor."><img src="media/photos/slicing-in-bambu-studio-1.jpg" loading="lazy" alt="Student slicing the enclosure in Bambu Studio while a mentor watches"></button>
+              <button class="image-button" type="button" data-lightbox="media/photos/slicing-in-bambu-studio-2.jpg" data-caption="Setting up the print in Bambu Studio at the Makerspace."><img src="media/photos/slicing-in-bambu-studio-2.jpg" loading="lazy" alt="Two students setting up the print in Bambu Studio"></button>
+              <button class="image-button" type="button" data-lightbox="media/photos/bambu-studio-send-print-job.jpg" data-caption="Send print job dialog: A1 mini, PLA, 1 h 38 m, 98.66 g."><img src="media/photos/bambu-studio-send-print-job.jpg" loading="lazy" alt="Bambu Studio send print job dialog"></button>
+            </div>
+          </li>
+          <li>
+            <span class="step-no">03</span>
+            <p class="step-status status-done">Done</p>
+            <h3>Printing on the Bambu Lab A1 mini</h3>
+            <p>The print started with auto bed levelling and flow calibration (the printer screen shows the nozzle at 101 °C and bed at 34 °C while heating). The box and lid printed successfully in white PLA.</p>
+            <div class="step-media">
+              <button class="image-button" type="button" data-lightbox="media/photos/bambu-a1-mini-printing-screen.jpg" data-caption="A1 mini screen at the start of the job: 0 %, about 1 h 38 m remaining."><img src="media/photos/bambu-a1-mini-printing-screen.jpg" loading="lazy" alt="Bambu Lab A1 mini touchscreen at 0 percent with 1 hour 38 minutes remaining"></button>
+              <video src="media/videos/printing-lid-first-layers.mp4" poster="media/posters/printing-lid-first-layers.jpg" controls muted playsinline preload="none" aria-label="Lid first layers printing"></video>
+              <video src="media/videos/printing-enclosure-box.mp4" poster="media/posters/printing-enclosure-box.jpg" controls muted playsinline preload="none" aria-label="Enclosure box printing"></video>
+            </div>
+          </li>
+          <li>
+            <span class="step-no">04</span>
+            <p class="step-status status-progress">In progress</p>
+            <h3>Wiring and soldering into the enclosure</h3>
+            <p>Leads are being soldered and routed into the printed box; the lid carries holes for the wires. A small black switch with its red lead is already fitted inside the box.</p>
+            <div class="step-media">
+              <button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-1.jpg" data-caption="Soldering the leads next to the printed enclosure."><img src="media/photos/soldering-enclosure-wiring-1.jpg" loading="lazy" alt="Soldering iron and wires beside the white 3D-printed enclosure"></button>
+              <button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-2.jpg" data-caption="Tinning a wire with the enclosure and lid in the background."><img src="media/photos/soldering-enclosure-wiring-2.jpg" loading="lazy" alt="Tinning a wire with the enclosure and lid in the background"></button>
+            </div>
+          </li>
+          <li>
+            <span class="step-no">05</span>
+            <p class="step-status status-planned">Next</p>
+            <h3>Upload firmware and connect the phone</h3>
+            <p>Flash <code>medicine_alarm.ino</code> from the Arduino IDE, join the <code>MedicineAlarm</code> network and set the first reminder.</p>
+          </li>
+          <li>
+            <span class="step-no">06</span>
+            <p class="step-status status-planned">Planned</p>
+            <h3>Test and record results</h3>
+            <p>Run the test plan in Section 10 and publish the measured results on this page.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 08 FIRMWARE ============ -->
+    <section class="section" id="firmware" aria-labelledby="firmware-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 08</p>
+          <h2 id="firmware-title">Firmware</h2>
+        </header>
+        <p class="section-intro">Arduino sketch for the ESP32 (one daily reminder). Install the <em>ESP32 board package</em> in the Arduino IDE, select <em>ESP32 Dev Module</em>, and upload. Source: <a href="firmware/medicine_alarm/medicine_alarm.ino">firmware/medicine_alarm/medicine_alarm.ino</a>.</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Web routes served by the ESP32</caption>
+            <thead><tr><th scope="col">Route</th><th scope="col">Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>/</code></td><td>Control page (forms and buttons)</td></tr>
+              <tr><td><code>/settime</code></td><td>Set the device clock from the phone's date and time</td></tr>
+              <tr><td><code>/save</code></td><td>Save medicine name and daily reminder time (validated)</td></tr>
+              <tr><td><code>/status</code></td><td>Medicine, reminder, clock set, alarm active, emergency flag</td></tr>
+              <tr><td><code>/stop</code></td><td>Silence the buzzer</td></tr>
+              <tr><td><code>/emergency</code></td><td>Raise the emergency flag</td></tr>
+              <tr><td><code>/clear</code></td><td>Clear the emergency flag</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="code-block collapsed" id="code-block">
+          <div class="code-head">
+            <span>firmware/medicine_alarm/medicine_alarm.ino</span>
+            <span class="code-actions">
+              <button class="icon-button" type="button" id="code-expand">Expand</button>
+              <button class="icon-button" type="button" id="code-copy">Copy</button>
+            </span>
+          </div>
+          <pre><code id="code-text">/*
+  MedAlarm - Smart Medicine Reminder and Emergency Alert System
+  Board : ESP32 DevKit V1 (Arduino IDE, &quot;ESP32 Dev Module&quot;)
+  Mode  : ESP32 runs its own Wi-Fi access point; the phone connects to it
+          and opens http://192.168.4.1 to set the reminder. No LCD/OLED.
+
+  Wiring (see docs/wiring.md)
+    Active buzzer  +  -&gt; GPIO 25     -  -&gt; GND
+    Stop button       -&gt; GPIO 26 and GND (internal pull-up)
+    Emergency button  -&gt; GPIO 27 and GND (internal pull-up)
+
+  Changes from the first draft:
+    - /save validates the time BEFORE changing the stored reminder.
+    - /clear resets the emergency flag (previously it could never be cleared).
+*/
+
+#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+#include &lt;time.h&gt;
+
+const char* apName = &quot;MedicineAlarm&quot;;
+const char* apPassword = &quot;MedAlarm123&quot;;   // change before demonstrating
+
+WebServer server(80);
+
+const int BUZZER_PIN = 25;
+const int STOP_PIN = 26;
+const int EMERGENCY_PIN = 27;
+
+String medicine = &quot;Medicine&quot;;
+int alarmHour = 9;
+int alarmMinute = 0;
+
+bool alarmActive = false;
+bool emergencyAlert = false;
+int lastTriggeredDay = -1;
+
+const char* page = R&quot;HTML(
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;Medicine Alarm&lt;/title&gt;
+&lt;style&gt;
+body{font-family:Arial;max-width:440px;margin:25px auto;
+padding:16px;background:#f1f5f9;color:#172033}
+section{background:white;padding:18px;border-radius:14px;
+margin-bottom:14px}
+input,button{font-size:16px;padding:12px;margin:5px 0;
+width:100%;box-sizing:border-box}
+button{background:#176b62;color:white;border:0;border-radius:8px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;Medicine Reminder&lt;/h2&gt;
+&lt;section&gt;
+&lt;form action=&quot;/save&quot;&gt;
+&lt;label&gt;Medicine name&lt;/label&gt;
+&lt;input name=&quot;med&quot; maxlength=&quot;40&quot; required&gt;
+&lt;label&gt;Reminder time&lt;/label&gt;
+&lt;input type=&quot;time&quot; name=&quot;time&quot; value=&quot;09:00&quot; required&gt;
+&lt;button&gt;Save reminder&lt;/button&gt;
+&lt;/form&gt;
+&lt;/section&gt;
+&lt;section&gt;
+&lt;form action=&quot;/settime&quot;&gt;
+&lt;label&gt;Current phone time (24-hour format)&lt;/label&gt;
+&lt;input name=&quot;time&quot; type=&quot;datetime-local&quot; required&gt;
+&lt;button&gt;Set device time&lt;/button&gt;
+&lt;/form&gt;
+&lt;/section&gt;
+&lt;section&gt;
+&lt;button onclick=&quot;location.href=&#x27;/status&#x27;&quot;&gt;Check status&lt;/button&gt;
+&lt;button onclick=&quot;location.href=&#x27;/stop&#x27;&quot;&gt;Stop buzzer&lt;/button&gt;
+&lt;button onclick=&quot;if(confirm(&#x27;Send emergency alert?&#x27;))location.href=&#x27;/emergency&#x27;&quot;&gt;
+Emergency alert
+&lt;/button&gt;
+&lt;button onclick=&quot;location.href=&#x27;/clear&#x27;&quot;&gt;Clear emergency&lt;/button&gt;
+&lt;/section&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+)HTML&quot;;
+
+bool clockIsSet() {
+  time_t now = time(nullptr);
+  return now &gt; 1700000000;
+}
+
+void stopAlarm() {
+  alarmActive = false;
+  digitalWrite(BUZZER_PIN, LOW);
+}
+
+void redirectHome() {
+  server.sendHeader(&quot;Location&quot;, &quot;/&quot;);
+  server.send(303);
+}
+
+void handleRoot() {
+  server.send(200, &quot;text/html&quot;, page);
+}
+
+void handleSave() {
+  if (!server.hasArg(&quot;med&quot;) || !server.hasArg(&quot;time&quot;)) {
+    server.send(400, &quot;text/plain&quot;, &quot;Invalid reminder settings&quot;);
+    return;
+  }
+
+  String t = server.arg(&quot;time&quot;);
+  int colon = t.indexOf(&#x27;:&#x27;);
+  if (colon &lt;= 0) {
+    server.send(400, &quot;text/plain&quot;, &quot;Invalid reminder settings&quot;);
+    return;
+  }
+
+  int newHour = t.substring(0, colon).toInt();
+  int newMinute = t.substring(colon + 1).toInt();
+  if (newHour &lt; 0 || newHour &gt; 23 || newMinute &lt; 0 || newMinute &gt; 59) {
+    server.send(400, &quot;text/plain&quot;, &quot;Invalid reminder settings&quot;);
+    return;
+  }
+
+  medicine = server.arg(&quot;med&quot;);
+  alarmHour = newHour;
+  alarmMinute = newMinute;
+  lastTriggeredDay = -1;
+  redirectHome();
+}
+
+void handleSetTime() {
+  if (!server.hasArg(&quot;time&quot;)) {
+    server.send(400, &quot;text/plain&quot;, &quot;Missing time&quot;);
+    return;
+  }
+
+  String t = server.arg(&quot;time&quot;);
+  int y, mo, d, h, mi;
+
+  if (sscanf(t.c_str(), &quot;%d-%d-%dT%d:%d&quot;, &amp;y, &amp;mo, &amp;d, &amp;h, &amp;mi) != 5 ||
+      y &lt; 2024 || mo &lt; 1 || mo &gt; 12 || d &lt; 1 || d &gt; 31 ||
+      h &lt; 0 || h &gt; 23 || mi &lt; 0 || mi &gt; 59) {
+    server.send(400, &quot;text/plain&quot;, &quot;Invalid date and time&quot;);
+    return;
+  }
+
+  struct tm tmNow = {};
+  tmNow.tm_year = y - 1900;
+  tmNow.tm_mon = mo - 1;
+  tmNow.tm_mday = d;
+  tmNow.tm_hour = h;
+  tmNow.tm_min = mi;
+  tmNow.tm_isdst = -1;
+
+  time_t epoch = mktime(&amp;tmNow);
+  struct timeval tv = { epoch, 0 };
+  settimeofday(&amp;tv, nullptr);
+  redirectHome();
+}
+
+void handleStatus() {
+  String s = &quot;Medicine: &quot; + medicine +
+    &quot;\nReminder: &quot; + String(alarmHour) + &quot;:&quot; +
+    (alarmMinute &lt; 10 ? &quot;0&quot; : &quot;&quot;) + String(alarmMinute) +
+    &quot;\nClock set: &quot; + String(clockIsSet() ? &quot;Yes&quot; : &quot;No&quot;) +
+    &quot;\nAlarm active: &quot; + String(alarmActive ? &quot;Yes&quot; : &quot;No&quot;) +
+    &quot;\nEmergency alert: &quot; + String(emergencyAlert ? &quot;YES&quot; : &quot;No&quot;);
+  server.send(200, &quot;text/plain&quot;, s);
+}
+
+void handleStop() {
+  stopAlarm();
+  redirectHome();
+}
+
+void handleEmergency() {
+  emergencyAlert = true;
+  server.send(200, &quot;text/plain&quot;,
+    &quot;Emergency alert registered on the device. &quot;
+    &quot;No SMS or telephone call was sent.&quot;);
+}
+
+void handleClear() {
+  emergencyAlert = false;
+  redirectHome();
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW);
+  pinMode(STOP_PIN, INPUT_PULLUP);
+  pinMode(EMERGENCY_PIN, INPUT_PULLUP);
+
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(apName, apPassword);
+
+  server.on(&quot;/&quot;, handleRoot);
+  server.on(&quot;/save&quot;, handleSave);
+  server.on(&quot;/settime&quot;, handleSetTime);
+  server.on(&quot;/status&quot;, handleStatus);
+  server.on(&quot;/stop&quot;, handleStop);
+  server.on(&quot;/emergency&quot;, handleEmergency);
+  server.on(&quot;/clear&quot;, handleClear);
+  server.begin();
+
+  Serial.print(&quot;Connect to Wi-Fi: &quot;);
+  Serial.println(apName);
+  Serial.print(&quot;Open browser at http://&quot;);
+  Serial.println(WiFi.softAPIP());
+}
+
+void loop() {
+  server.handleClient();
+
+  if (digitalRead(STOP_PIN) == LOW) {
+    stopAlarm();
+  }
+
+  if (digitalRead(EMERGENCY_PIN) == LOW) {
+    emergencyAlert = true;
+  }
+
+  if (clockIsSet()) {
+    time_t now = time(nullptr);
+    struct tm localTime;
+    localtime_r(&amp;now, &amp;localTime);
+
+    if (localTime.tm_hour == alarmHour &amp;&amp;
+        localTime.tm_min == alarmMinute &amp;&amp;
+        localTime.tm_yday != lastTriggeredDay) {
+      alarmActive = true;
+      lastTriggeredDay = localTime.tm_yday;
+    }
+  }
+
+  if (alarmActive) {
+    digitalWrite(BUZZER_PIN, (millis() / 400) % 2);   // beep 400 ms on / off
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);
+  }
+
+  delay(10);
+}
+</code></pre>
+        </div>
+        <div class="note-block warn">
+          <h3>Known limitations of version 1</h3>
+          <ul>
+            <li>One daily reminder only; multiple medicines need a schedule list.</li>
+            <li>The clock is lost after a power cut and must be set again (DS3231 RTC upgrade planned).</li>
+            <li>The emergency alert is local: it shows on the status page but does not notify anyone else. GSM or an internet service is needed for that.</li>
+            <li>Change the default Wi-Fi password before demonstrating the device.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 09 PHONE CONTROL ============ -->
+    <section class="section section-tinted" id="phone" aria-labelledby="phone-title">
+      <div class="shell shell-wide">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 09</p>
+          <h2 id="phone-title">Operating it from a phone</h2>
+        </header>
+        <ol class="prose">
+          <li>Power the device from USB.</li>
+          <li>On the phone, open Wi-Fi settings and join <code>MedicineAlarm</code> (password <code>MedAlarm123</code> by default).</li>
+          <li>Open a browser and go to <code>http://192.168.4.1</code>.</li>
+          <li>Set the current date and time, then save the medicine name and reminder time.</li>
+          <li>At the reminder time the buzzer sounds. Press the physical stop button, or <em>Stop buzzer</em> on the phone.</li>
+        </ol>
+        <h3 class="subhead" id="sim-title">Control logic simulator</h3>
+        <div class="sim-banner" role="note"><strong>Simulator — not connected to hardware.</strong> This page re-implements the firmware logic in the browser so you can try the workflow. It does not talk to a real device.</div>
+        <div class="sim" role="group" aria-labelledby="sim-title">
+          <div class="phone" aria-label="Simulated phone control page">
+            <div class="phone-bar"><span>MedicineAlarm ✓</span><span id="phone-clock">--:--</span></div>
+            <div class="url">http://192.168.4.1/</div>
+            <h4>Medicine Reminder</h4>
+            <section>
+              <label for="sim-med">Medicine name</label>
+              <input id="sim-med" maxlength="40" value="Paracetamol">
+              <label for="sim-alarm">Reminder time</label>
+              <input id="sim-alarm" type="time" value="09:00">
+              <button type="button" id="sim-save">Save reminder</button>
+            </section>
+            <section>
+              <label for="sim-now">Current phone time</label>
+              <input id="sim-now" type="time" value="08:59">
+              <button type="button" id="sim-settime">Set device time</button>
+            </section>
+            <section>
+              <button type="button" id="sim-stop">Stop buzzer</button>
+              <button type="button" class="danger" id="sim-emergency">Emergency alert</button>
+              <button type="button" class="ghost" id="sim-clear">Clear emergency</button>
+            </section>
+          </div>
+          <div class="device-panel" id="device-panel">
+            <p class="eyebrow">Simulated device</p>
+            <div class="device-row">
+              <span class="clock" id="device-clock">--:--:--</span>
+              <span class="led" id="buzzer-led" title="Buzzer"></span><span>Buzzer</span>
+              <span class="led" id="alert-led" title="Emergency"></span><span>Emergency</span>
+            </div>
+            <div class="speed-row">
+              <label for="sim-speed">Clock speed</label>
+              <select id="sim-speed">
+                <option value="1">1× real time</option>
+                <option value="10" selected>10×</option>
+                <option value="60">60×</option>
+              </select>
+              <label><input type="checkbox" id="sim-sound"> Beep sound</label>
+            </div>
+            <pre class="device-status" id="device-status" aria-live="polite"></pre>
+            <p class="eyebrow">Physical buttons</p>
+            <div class="hw-buttons">
+              <button type="button" class="hw-button" id="hw-stop">Stop button (GPIO 26)</button>
+              <button type="button" class="hw-button red" id="hw-emergency">Emergency button (GPIO 27)</button>
+              <button type="button" class="hw-button" id="sim-reset">Reset simulation</button>
+            </div>
+            <p class="figure-caption" id="sim-log" aria-live="polite">Tip: set the device time to one minute before the reminder and watch the buzzer start.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 TESTING ============ -->
+    <section class="section" id="testing" aria-labelledby="testing-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 10</p>
+          <h2 id="testing-title">Testing plan</h2>
+        </header>
+        <p class="result-flag"><strong>No results yet.</strong> Measured results will be published here once the device is wired and the firmware is running. Record raw results in <a href="data/test-log-template.csv">data/test-log-template.csv</a>.</p>
+        <div class="test-grid">
+          <article><h3>Reminder accuracy</h3><p>Set a reminder 2 minutes ahead; record the actual buzzer start time against the phone clock. Repeat 10 times.</p></article>
+          <article><h3>Clock drift</h3><p>Set the clock, leave the device running 24 h, compare with the phone. Report seconds of drift per day.</p></article>
+          <article><h3>Stop button</h3><p>Press the physical button and the phone's Stop buzzer during an alarm; confirm it stops every time and does not retrigger the same day.</p></article>
+          <article><h3>Emergency flag</h3><p>Press the emergency button; confirm the status page shows the alert and that Clear emergency resets it.</p></article>
+          <article><h3>Wi-Fi range</h3><p>Distance at which the phone can still load the control page, indoors through one wall.</p></article>
+          <article><h3>Buzzer loudness</h3><p>Sound level at 1 m with a phone sound-meter app, and whether it is audible from the next room.</p></article>
+          <article><h3>Power loss</h3><p>Unplug and replug: confirm the status shows "Clock set: No" and the device recovers after setting the time.</p></article>
+          <article><h3>Fit in enclosure</h3><p>Board, buttons and buzzer fit without strain on wires; USB port reachable with the lid on.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 SAFETY ============ -->
+    <section class="section section-tinted" id="safety" aria-labelledby="safety-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 11</p>
+          <h2 id="safety-title">Safety and limitations</h2>
+        </header>
+        <ul class="check-list">
+          <li>This is a reminder aid, not a medical device. Never rely on it as the only reminder for critical medication.</li>
+          <li>Only low-voltage USB power is used. Do not connect any mains wiring to the device.</li>
+          <li>Use a ventilated area and a stand for the soldering iron; let joints cool before handling the PLA box (PLA softens around 60 °C).</li>
+          <li>Check the buzzer's current before connecting it directly to a GPIO pin; use a transistor driver if needed.</li>
+          <li>The emergency button does not call or message anyone in version 1. Do not present it as an emergency service.</li>
+          <li>Change the default Wi-Fi password so other people nearby cannot change the reminders.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 12 GALLERY ============ -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="shell shell-wide">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 12</p>
+          <h2 id="gallery-title">Gallery</h2>
+        </header>
+        <p class="section-intro">All photographs and videos are real and unedited (resized for the web). Click a photo to open it full size; use the arrow keys to browse.</p>
+        <div class="media-grid" id="gallery-grid">
+          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-1.jpg" data-caption="Soldering the leads next to the printed enclosure."><img src="media/photos/soldering-enclosure-wiring-1.jpg" loading="lazy" alt="Soldering beside the enclosure"></button><figcaption><b>Soldering</b>Leads being prepared for the enclosure.</figcaption></figure>
+          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/soldering-enclosure-wiring-2.jpg" data-caption="Tinning a wire with the enclosure and lid in the background."><img src="media/photos/soldering-enclosure-wiring-2.jpg" loading="lazy" alt="Tinning a wire"></button><figcaption><b>Tinning wires</b>Box and drilled lid behind.</figcaption></figure>
+          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/bambu-a1-mini-printing-screen.jpg" data-caption="Bambu Lab A1 mini at the start of the enclosure print."><img src="media/photos/bambu-a1-mini-printing-screen.jpg" loading="lazy" alt="A1 mini screen"></button><figcaption><b>A1 mini screen</b>Print starting, 1 h 38 m estimate.</figcaption></figure>
+          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/slicing-in-bambu-studio-1.jpg" data-caption="Slicing the enclosure in Bambu Studio with our mentor."><img src="media/photos/slicing-in-bambu-studio-1.jpg" loading="lazy" alt="Slicing with mentor"></button><figcaption><b>Slicing</b>Preparing the print with our mentor.</figcaption></figure>
+          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/slicing-in-bambu-studio-2.jpg" data-caption="Setting up the print in Bambu Studio at the Makerspace."><img src="media/photos/slicing-in-bambu-studio-2.jpg" loading="lazy" alt="Students at the slicer"></button><figcaption><b>At the Makerspace</b>Bambu Studio set-up.</figcaption></figure>
+          <figure class="media-card"><button class="image-button" type="button" data-lightbox="media/photos/bambu-studio-send-print-job.jpg" data-caption="Send print job: A1 mini, PLA, 1 h 38 m, 98.66 g."><img src="media/photos/bambu-studio-send-print-job.jpg" loading="lazy" alt="Send print job dialog"></button><figcaption><b>Send print job</b>98.66 g PLA, 0.4 mm nozzle.</figcaption></figure>
+        </div>
+        <div class="media-grid videos">
+          <figure class="media-card"><video src="media/videos/printing-enclosure-box.mp4" poster="media/posters/printing-enclosure-box.jpg" controls muted playsinline preload="none"></video><figcaption><b>Box printing</b>15 s</figcaption></figure>
+          <figure class="media-card"><video src="media/videos/printing-enclosure-walls.mp4" poster="media/posters/printing-enclosure-walls.jpg" controls muted playsinline preload="none"></video><figcaption><b>Walls</b>10 s</figcaption></figure>
+          <figure class="media-card"><video src="media/videos/printing-lid-first-layers.mp4" poster="media/posters/printing-lid-first-layers.jpg" controls muted playsinline preload="none"></video><figcaption><b>Lid, first layers</b>7 s</figcaption></figure>
+          <figure class="media-card"><video src="media/videos/printing-lid-closeup.mp4" poster="media/posters/printing-lid-closeup.jpg" controls muted playsinline preload="none"></video><figcaption><b>Lid close-up</b>8 s</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13 STATUS ============ -->
+    <section class="section section-tinted" id="status" aria-labelledby="status-title">
+      <div class="shell">
+        <header class="title-block">
+          <p class="section-number"><span class="tb-label">SEC</span> 13</p>
+          <h2 id="status-title">Build status and roadmap</h2>
+        </header>
+        <div class="status-board">
+          <div class="status-col">
+            <h3 class="status-done">Done</h3>
+            <ul>
+              <li>Screen-free, phone-controlled concept</li>
+              <li>Component selection and pin map</li>
+              <li>Firmware v1 written</li>
+              <li>Enclosure box and lid printed on the A1 mini</li>
+            </ul>
+          </div>
+          <div class="status-col">
+            <h3 class="status-progress">In progress</h3>
+            <ul>
+              <li>Soldering and wiring inside the enclosure</li>
+              <li>Mounting buttons and buzzer in the lid</li>
+            </ul>
+          </div>
+          <div class="status-col">
+            <h3 class="status-planned">Next</h3>
+            <ul>
+              <li>Flash firmware and phone test</li>
+              <li>Run the testing plan, publish results</li>
+              <li>DS3231 RTC for power-loss recovery</li>
+              <li>Multiple medicine schedules</li>
+              <li>GSM / internet alerts for emergencies</li>
+            </ul>
+          </div>
+        </div>
+        <h3 class="subhead">Team</h3>
+        <div class="team-grid">
+          <div class="team-card"><b data-team="members">Pranav Ravindra Shelke</b><span>FY B.Tech Mechanical Engineering</span></div>
+          <div class="team-card"><b data-team="guide">To be added</b><span>Project Guide</span></div>
+          <div class="team-card"><b>Sanjivani University Makerspace</b><span>Bambu Lab A1 mini, Bambu Studio</span></div>
+        </div>
+        <h3 class="subhead">Repository</h3>
+        <pre class="repo-tree">index.html                     this page (GitHub Pages)
+assets/css/site.css            styles
+assets/js/site.js              navigation, theme, lightbox, simulator
+firmware/medicine_alarm/       Arduino sketch for the ESP32
+docs/                          overview, bill of materials, wiring, 3D printing, testing
+data/test-log-template.csv     blank test log
+media/photos, media/videos     real build photographs and print videos</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <p>MedAlarm — Smart Medicine Reminder &amp; Emergency Alert System · Sanjivani University Makerspace</p>
+      <p><a href="#top">Back to top ↑</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lb-btn lb-close" type="button" aria-label="Close">×</button>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous image">‹</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button class="lb-btn lb-next" type="button" aria-label="Next image">›</button>
+  </div>
+</body>
+</html>

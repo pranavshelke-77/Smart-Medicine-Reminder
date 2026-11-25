@@ -1,0 +1,15 @@
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+*.tmp
+~$*
+
+# Arduino / PlatformIO build output
+build/
+.pio/
+
+# CAD and slicer backups
+*.bak
+*.SLDPRT.bak
