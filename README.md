@@ -4,7 +4,7 @@
 
 A screen-free medicine reminder built on an **ESP32**. The device has no LCD or keypad: it creates its own Wi-Fi network and the medicine name, reminder time and alarm are controlled from any phone browser. A buzzer sounds when the dose is due, a physical button stops it, and an emergency button raises an alert. The enclosure was 3D-printed in PLA on a **Bambu Lab A1 mini**.
 
-**Project website:** https://USERNAME.github.io/REPOSITORY/ (enable GitHub Pages: *Settings → Pages → Deploy from branch → main / root*)
+**Project website:** https://pranavshelke-77.github.io/Smart-Medicine-Reminder/
 
 ![Enclosure printing on the Bambu Lab A1 mini](media/og-image.jpg)
 
